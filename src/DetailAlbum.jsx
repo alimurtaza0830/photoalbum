@@ -5,7 +5,7 @@ import Modal from './components/Modal';
 class DetailAlbum extends Component {
 	state = {
 		details: [],
-		modelOpen: true,
+		modalOpen: false,
 		modalProduct: []
 	}
 
@@ -32,6 +32,8 @@ class DetailAlbum extends Component {
   	};
 	render() {
 		const { details } = this.state;
+		const { id, thumbnailUrl, albumId, title } = this.state.details;
+		console.log(id);
 		return (
 			<div>
 				<div className="album py-5 bg-light">
@@ -57,6 +59,8 @@ class DetailAlbum extends Component {
 				    <Modal 
 					details={details}
 					closeModal={this.closeModal}
+					modalProduct={this.state.modalProduct}
+					modalOpen={this.state.modalOpen}
 					/>
 				</div>
 				
