@@ -6,8 +6,8 @@ class Modal extends Component {
   
 
 	render () {
-    const { modalOpen, modalClosed, img, title, id } = this.props;
-    const { };
+    const { details, closeModal, modalOpen } = this.props;
+
       if(!modalOpen) 
         {
           return null
@@ -15,24 +15,20 @@ class Modal extends Component {
       else 
         {
       		return (
-      			<div>
-      				<div className="container">
-      					<div className="row">
-                          <div
-                            id="modal"
-                            className="col-md-12 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-5"
+      			<div className="modalcontainer">
+      				 <div id="modal" className="col-sm-12 col-md-12 mx-auto col-lg-12 text-center text-capitalize p-5"
                           >
-                            <img src={img} className="img-fluid" alt="product" />
-                            <h5>{title}</h5>
-                            <h5 className="text-muted">{id}</h5>
-                            <Link to="/DetailAlbum">
-                              <button className="btn btn-primary btn-sm" onClick={() => closeModal()} > Close Modal </button>
-                            </Link>
-                          </div>
-                        </div>
-      				</div>
-      			</div>
+                    <img src={details.thumbnailUrl} className="img-fluid" alt="product" />
+                    <h5>Album :{details.id}</h5>
+                      <h5 className="text-muted">User: {details.id}</h5>
+                      <Link to="/DetailAlbum">
+                        <button className="btn btn-primary btn-sm" onClick={() => closeModal()} > Close Modal </button>
+                      </Link>
+                </div>
+            </div>
       		)
     	  }
     }
 }
+
+export default Modal;
