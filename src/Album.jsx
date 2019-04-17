@@ -1,0 +1,41 @@
+import React, { Component } from 'react';
+import { getAlbum } from "./services/albumService";
+import SingleAlbum from "./SingleAlbum";
+
+
+class Album extends Component {
+	state = {
+		imgUrl: 'https://via.placeholder.com/150/00ff',
+		items: []
+	}
+		
+	async componentDidMount() {
+		const { data: items } = await getAlbum();
+		this.setState({ items });
+		
+	}
+	render() {
+		const { items, imgUrl } = this.state;
+			return (
+						<div>
+							<div className="album py-5 bg-light">
+							    <div className="container">
+							      <div className="row">
+					      				{
+									      	items.map(item => (
+												<SingleAlbum 
+						 						key={item.id}
+												imgUrl={imgUrl}
+												item={item}
+												 />
+									      	))
+									    }
+							      </div>
+							    </div>
+							</div>
+						</div>
+					)
+		}
+}
+
+export default Album;
