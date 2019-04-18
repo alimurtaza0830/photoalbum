@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import LazyLoad from "react-lazyload";
 import { getDetails } from "../services/albumService";
 import Modal from '../common/Modal';
 import Pagination from '../common/Pagination';
+
 
 
 
@@ -97,15 +99,19 @@ class DetailAlbum extends Component {
 						      {
 						      	currentAlbum.map((album, index) => {
 									return (
-										<div className="col-md-3" key={album.id}>
-									        <div className="card mb-4 shadow-sm" >
-									          <img className="card-img-top" src={album.thumbnailUrl} alt="Card image cap" onClick={() => this.openModal(album.id)} />
-									          <div className="card-body">
-									           	<h5 className="card-title">{album.albumId}</h5>
-									            <p className="card-text">{album.title}</p>
-									          </div>
-									        </div>
-										</div>
+										<LazyLoad>
+											<div className="col-md-3" key={album.id}>
+										        <div className="card mb-4 shadow-sm">
+										        
+										          <img className="card-img-top" src={album.thumbnailUrl} alt="Card image cap" onClick={() => this.openModal(album.id)} />
+										         
+										          <div className="card-body">
+										           	<h5 className="card-title">{album.albumId}</h5>
+										            <p className="card-text">{album.title}</p>
+										          </div>
+										        </div>
+											</div>
+										</LazyLoad> 
 									)
 								})
 						      }

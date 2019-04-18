@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LazyLoad from "react-lazyload";
 import { getAlbum } from "../services/albumService";
 import SingleAlbum from "./SingleAlbum";
 
@@ -24,11 +25,13 @@ class Album extends Component {
 							  { /* Code for rendering initial thumbnails  */}
 					      				{
 									      	items.map(item => (
+									      		<LazyLoad>
 												<SingleAlbum 
 						 						key={item.id}
 												imgUrl={imgUrl}
 												item={item}
 												 />
+												 </LazyLoad>
 									      	))
 									    }
 							      </div>

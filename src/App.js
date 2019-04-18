@@ -5,7 +5,9 @@ import  DetailAlbum  from './components/DetailAlbum';
 import Header from './components/Header';
 
 
+
 class App extends Component {
+
   render() {
     return (
       <React.Fragment>
