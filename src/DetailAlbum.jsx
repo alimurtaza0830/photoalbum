@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { getDetails } from "./services/albumService";
 import Modal from './components/Modal';
+import Pagination from './components/Pagination';
+
 
 class DetailAlbum extends Component {
 	state = {
 		details: [],
 		modalOpen: false,
-		modalProduct: []
+		modalAlbum: [],
+		albumPerPage: 4,
+		currentPage: 1,
 	}
 
 	async componentDidMount() {
@@ -22,7 +26,7 @@ class DetailAlbum extends Component {
   	openModal = id => {
     const product = this.getItem(id);
     this.setState(() => {
-      return { modalProduct: product, modalOpen: true };
+      return { modalAlbum: product, modalOpen: true };
     });
   	};
   	closeModal = () => {
@@ -30,28 +34,57 @@ class DetailAlbum extends Component {
       	return { modalOpen: false };
     	});
   	};
+
+  	handleClick = (event) => {
+  		this.setState({
+  			currentPage: Number(event.target.id)
+  		});
+  	}
 	render() {
-		const { details } = this.state;
-		const { id, thumbnailUrl, albumId, title } = this.state.details;
-		console.log(id);
+		const { details, currentPage, albumPerPage } = this.state;
+		// const { thumbnailUrl, albumId, title } = this.state.details;
+		const indexOfLastAlbum = currentPage * albumPerPage;
+		const indexOfFirstAlbum = indexOfLastAlbum - albumPerPage;
+		const currentAlbum = details.slice(indexOfFirstAlbum, indexOfLastAlbum);
+
+		console.log(currentAlbum);
+		const pageNumbers = [];
+		  for (let i = 1; i <= Math.ceil(details.length / albumPerPage); i++) {
+          pageNumbers.push(i);
+         
+        };
+  
 		return (
+			
 			<div>
 				<div className="album py-5 bg-light">
 				    <div className="container">
+				    <div className="row">
+				    	<ul className="pagination">
+				    	{
+				    		pageNumbers.map(number => {
+				    			return ( 
+				    			 <Pagination handleClick={this.handleClick} number={number} key={number} />
+				    			)
+				    		})
+				    	}
+				    	</ul> 
+				    </div>
 				      <div className="row">
 					      {
-					      	details.map(detail => (
-								<div className="col-md-3" key={detail.id}>
-							        <div className="card mb-4 shadow-sm" >
-							          <img className="card-img-top" src={detail.thumbnailUrl} alt="Card image cap" onClick={() => this.openModal(detail.id)} />
-							          <div className="card-body">
-							           	<h5 className="card-title">{detail.albumId}</h5>
-							            <p className="card-text">{detail.title}</p>
-							          </div>
-							        </div>
-							    </div>
-					      		)
-					      	)
+					      	currentAlbum.map((album, index) => {
+								return (
+									<div className="col-md-3" key={album.id}>
+								        <div className="card mb-4 shadow-sm" >
+								          <img className="card-img-top" src={album.thumbnailUrl} alt="Card image cap" onClick={() => this.openModal(album.id)} />
+								          <div className="card-body">
+								           	<h5 className="card-title">{album.albumId}</h5>
+								            <p className="card-text">{album.title}</p>
+								          </div>
+								        </div>
+									</div>
+								)
+							})
 					      }
 						
 				      </div>
@@ -59,7 +92,7 @@ class DetailAlbum extends Component {
 				    <Modal 
 					details={details}
 					closeModal={this.closeModal}
-					modalProduct={this.state.modalProduct}
+					modalAlbum={this.state.modalAlbum}
 					modalOpen={this.state.modalOpen}
 					/>
 				</div>

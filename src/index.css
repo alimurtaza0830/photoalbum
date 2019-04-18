@@ -23,3 +23,6 @@ code {
 #modal {
 	background: #fff;
 }
+.page-item {
+  cursor: pointer;
+}
