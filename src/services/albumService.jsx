@@ -4,7 +4,7 @@ import axios from 'axios';
 // export default getAlbum;
 
 export async function getAlbum() {
-  const albums = await axios.get("https://jsonplaceholder.typicode.com/albums?_start=0&_limit=15");
+  const albums = await axios.get("https://jsonplaceholder.typicode.com/albums?_start=0&_limit=5");
   return albums;
 }
 
