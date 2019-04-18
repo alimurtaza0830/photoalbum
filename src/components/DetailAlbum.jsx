@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { getDetails } from "./services/albumService";
-import Modal from './components/Modal';
-import Pagination from './components/Pagination';
-import Select from './components/Select';
+import { getDetails } from "../services/albumService";
+import Modal from '../common/Modal';
+import Pagination from '../common/Pagination';
 
 
 
@@ -12,8 +11,7 @@ class DetailAlbum extends Component {
 		modalOpen: false,
 		modalAlbum: [],
 		albumPerPage: 4,
-		currentPage: 1,
-		selectOptions: [2, 3, 5]
+		currentPage: 1
 	}
 
 	async componentDidMount() {
@@ -57,14 +55,12 @@ class DetailAlbum extends Component {
 		const indexOfFirstAlbum = indexOfLastAlbum - albumPerPage;
 		const currentAlbum = details.slice(indexOfFirstAlbum, indexOfLastAlbum);
 
-		console.log(currentAlbum);
 		const pageNumbers = [];
 		  for (let i = 1; i <= Math.ceil(details.length / albumPerPage); i++) {
           pageNumbers.push(i);
          
         };
-        const { options } = this.state.selectOptions;
-  
+   
 		return (
 			
 			<div>

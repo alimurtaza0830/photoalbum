@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
-import  Album  from './Album';
-import  DetailAlbum  from './DetailAlbum';
-import Header from './Header';
+import  Album  from './components/Album';
+import  DetailAlbum  from './components/DetailAlbum';
+import Header from './components/Header';
 
 
 class App extends Component {
