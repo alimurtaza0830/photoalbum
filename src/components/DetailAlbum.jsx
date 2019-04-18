@@ -13,35 +13,37 @@ class DetailAlbum extends Component {
 		albumPerPage: 4,
 		currentPage: 1
 	}
-
+	// populate albums on init
 	async componentDidMount() {
 		const { data: details } = await getDetails();
 		this.setState({ details });
 		
 	}
+	// filter selected item
 	getItem = id => {
     const album = this.state.details.find(item => item.id === id);
     return album;
   	};
-
+  	// open modal
   	openModal = id => {
     const product = this.getItem(id);
     this.setState(() => {
       return { modalAlbum: product, modalOpen: true };
     });
   	};
+  	// modal close
   	closeModal = () => {
     	this.setState(() => {
       	return { modalOpen: false };
     	});
   	};
-
+  	// click even in pagination handler
   	handleClick = (event) => {
   		this.setState({
   			currentPage: Number(event.target.id)
   		});
   	};
-
+  	// select how many records to show
   	handleChange = (event) => {
   		var toShow = event.target.value;
   		this.setState({ albumPerPage: toShow });
@@ -55,6 +57,7 @@ class DetailAlbum extends Component {
 		const indexOfFirstAlbum = indexOfLastAlbum - albumPerPage;
 		const currentAlbum = details.slice(indexOfFirstAlbum, indexOfLastAlbum);
 
+		// calculate number of pages
 		const pageNumbers = [];
 		  for (let i = 1; i <= Math.ceil(details.length / albumPerPage); i++) {
           pageNumbers.push(i);
@@ -67,6 +70,7 @@ class DetailAlbum extends Component {
 				<div className="album py-5 bg-light">
 				    <div className="container">
 					    <div className="row">
+					{ /* Code for back button  */}
 					    	<div className="col-xs-6 col-sm-6">
 					    		<button className="btn-btn-primary btn-sm"
 						      		onClick={this.props.history.goBack}>
@@ -75,6 +79,7 @@ class DetailAlbum extends Component {
 						    	
 					    	</div>
 					    	<div className="col-xs-6 col-sm-6">
+					    { /* Code for Select Album to show  */}
 						    	<div className="form-group row">
 							      <label className="col-sm-6 col-form-label text-right"> Show: </label>
 							      <div className="col-sm-6">
@@ -87,6 +92,7 @@ class DetailAlbum extends Component {
 							    </div>
 						    </div>
 					    </div>
+					{ /* Code for rendering thumbnails  */}
 					      <div className="row">
 						      {
 						      	currentAlbum.map((album, index) => {
@@ -105,6 +111,7 @@ class DetailAlbum extends Component {
 						      }
 							
 					      </div>
+					  	{ /* Code for Pagination  */}
 					      <div className="row">
 						      <div className="col-md-12">
 						      	<ul className="pagination">
